@@ -14,6 +14,9 @@ def create_index():
     get_es_connection().indices.create(INDEX)
 
 def reset_index():
+    """
+    Creates a new empty index with the relevant mappings
+    """
     try:
         delete_index()
     except NotFoundError as e:
@@ -22,4 +25,7 @@ def reset_index():
     set_mappings()
 
 def index_data(data):
+    """
+    Indexes a single data item into the DB.
+    """
     get_es_connection().index(index=INDEX, body=data)

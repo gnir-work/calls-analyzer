@@ -5,7 +5,7 @@ import datetime
 from dataclasses import dataclass
 from collections import OrderedDict
 import re
-from consts import FieldNames, NUMBER_REGEX, NUMBER_GROUP_NAME, LOCAL_TZ_INFO
+from consts import FieldNames, NUMBER_REGEX, NUMBER_GROUP_NAME, LOCAL_TZ_INFO, DATE_FORMAT
 from pytimeparse.timeparse import timeparse
 
 @dataclass
@@ -29,9 +29,15 @@ class CallMetadata:
                    )
 
 
-def _parse_number(number):
+def _parse_number(number : str) -> str:
+    """
+    Extract only the number from the string.
+    """
     return NUMBER_REGEX.match(number.replace(' ','')).groupdict()[NUMBER_GROUP_NAME]
 
-def _parse_date(date, time):
+def _parse_date(date : str, time : str) -> datetime.datetime:
+    """
+    Convert a date and time string into a datetime object.
+    """
     date_time = f"{date} {time}"
-    return arrow.get(date_time, f"M/D/YY HH:mm").replace(tzinfo=LOCAL_TZ_INFO).datetime
+    return arrow.get(date_time, DATE_FORMAT).replace(tzinfo=LOCAL_TZ_INFO).datetime
