@@ -1,4 +1,5 @@
 import re
+import pytz
 
 class FieldNames:
     """
@@ -12,4 +13,5 @@ class FieldNames:
     TYPE = 'Type'
 
 NUMBER_GROUP_NAME = 'number'
-NUMBER_REGEX = re.compile(fr"^\'(?P<{NUMBER_GROUP_NAME}>\+\d*)\'$")
+NUMBER_REGEX = re.compile(fr"^\'(?P<{NUMBER_GROUP_NAME}>\+?[\d-]*)\'$")
+LOCAL_TZ_INFO = pytz.timezone('Asia/Jerusalem')

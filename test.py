@@ -8,5 +8,7 @@ def read_file(path_to_file : str) -> OrderedDict:
 
 
 if __name__ == "__main__":
-    data = read_file('./calls.csv')[0]
-    print(CallMetadata.from_dict(data))
+    data = read_file('./calls.csv')
+    calls_metadata = map(CallMetadata.from_dict, data)
+    for d in calls_metadata:
+            print(d)

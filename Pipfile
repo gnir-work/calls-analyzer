@@ -11,6 +11,7 @@ autopep8 = "*"
 [packages]
 pytimeparse = "*"
 arrow = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.7"
