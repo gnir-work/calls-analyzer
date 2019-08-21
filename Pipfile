@@ -12,6 +12,7 @@ autopep8 = "*"
 pytimeparse = "*"
 arrow = "*"
 pytz = "*"
+elasticsearch = "*"
 
 [requires]
 python_version = "3.7"
