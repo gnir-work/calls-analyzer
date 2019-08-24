@@ -14,6 +14,7 @@ class CallMetadata:
     number: str
     duration: int
     call_type: str
+    week_day: int
     date: datetime.datetime
 
     @classmethod
@@ -21,11 +22,13 @@ class CallMetadata:
         """
         Create an instance of the class from a given dict.
         """
+        date = _parse_date(raw_data[FieldNames.DATE], raw_data[FieldNames.TIME])
         return cls(name=raw_data[FieldNames.NAME],
                    number=_parse_number(raw_data[FieldNames.NUMBER]),
                    duration=timeparse(raw_data[FieldNames.DURATION]),
                    call_type=raw_data[FieldNames.TYPE],
-                   date=_parse_date(raw_data[FieldNames.DATE], raw_data[FieldNames.TIME])
+                   date=date.datetime,
+                   week_day=date.weekday()
                    )
 
 
@@ -35,9 +38,9 @@ def _parse_number(number : str) -> str:
     """
     return NUMBER_REGEX.match(number.replace(' ','')).groupdict()[NUMBER_GROUP_NAME]
 
-def _parse_date(date : str, time : str) -> datetime.datetime:
+def _parse_date(date : str, time : str) -> arrow.Arrow:
     """
     Convert a date and time string into a datetime object.
     """
     date_time = f"{date} {time}"
-    return arrow.get(date_time, DATE_FORMAT).replace(tzinfo=LOCAL_TZ_INFO).datetime
+    return arrow.get(date_time, DATE_FORMAT).replace(tzinfo=LOCAL_TZ_INFO)

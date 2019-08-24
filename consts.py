@@ -33,10 +33,13 @@ MAPPINGS = {
       "type": "integer"
     },
     "call_type": {
-      "type": "text"
+      "type": "keyword"
     },
     "date": {
       "type": "date"
+    },
+    "week_day": {
+      "type": "keyword"
     }
   }
 }
